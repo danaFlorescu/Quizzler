@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'constants.dart';
 
+import 'questionBank.dart';
+
+QuestionBank myQuestionsList = QuestionBank();
+
 void main() {
   runApp(MyApp());
 }
@@ -25,6 +29,42 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<Icon> myIconsList = [];
+  int indexOfQuesions = 0;
+
+  void doTheWorkWhenButtonPressed(bool isTrue) {
+    bool correctAns = myQuestionsList.getAnswear();
+    if (!myQuestionsList.areQuestionsFinished()) {
+      if (isTrue) {
+        setState(() {
+          myIconsList.add(
+            getIconForYourAnswear(correctAns),
+          );
+        });
+      } else {
+        setState(() {
+          myIconsList.add(
+            getIconForYourAnswear(!correctAns),
+          );
+        });
+      }
+    }
+  }
+
+  Icon getIconForYourAnswear(bool isTrue) {
+    if (isTrue) {
+      return Icon(
+        Icons.check,
+        color: Colors.green,
+      );
+    } else {
+      return Icon(
+        Icons.close,
+        color: Colors.red,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -37,8 +77,8 @@ class _MyHomePageState extends State<MyHomePage> {
               Expanded(
                 child: Text(
                   textAlign: TextAlign.center,
-                  'Some cats are actually allergic to humans',
                   style: TextStyle(fontSize: 42.5, color: Colors.white),
+                  myQuestionsList.getQuestion(),
                 ),
               ),
             ],
@@ -53,11 +93,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: kButtonsPadding,
                   backgroundColor: Colors.green,
                 ),
-                onPressed: () {},
                 child: Text(
                   'True',
                   style: kTextStyle,
                 ),
+                onPressed: () {
+                  doTheWorkWhenButtonPressed(true);
+                  myQuestionsList.goToNextQuestion();
+                },
               ),
             ],
           ),
@@ -71,20 +114,22 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: kButtonsPadding,
                   backgroundColor: Colors.red,
                 ),
-                onPressed: () {},
                 child: Text(
                   'False',
                   style: kTextStyle,
                 ),
+                onPressed: () {
+                  doTheWorkWhenButtonPressed(false);
+                  myQuestionsList.goToNextQuestion();
+                },
               ),
             ],
           ),
         ),
         Expanded(
-          child: SizedBox(
-            height: 20,
-          ),
-        ),
+            child: Row(
+          children: myIconsList,
+        ))
       ],
     );
   }
