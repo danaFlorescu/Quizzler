@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'constants.dart';
 
 void main() {
   runApp(MyApp());
@@ -49,18 +50,13 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               OutlinedButton(
                 style: OutlinedButton.styleFrom(
-                  side: BorderSide(width: 5.0, color: Colors.black),
-                  padding: EdgeInsets.fromLTRB(80, 30, 80, 30),
+                  padding: kButtonsPadding,
                   backgroundColor: Colors.green,
                 ),
                 onPressed: () {},
                 child: Text(
                   'True',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: kTextStyle,
                 ),
               ),
             ],
@@ -72,18 +68,13 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               OutlinedButton(
                 style: OutlinedButton.styleFrom(
-                  side: BorderSide(width: 5.0, color: Colors.black),
-                  padding: EdgeInsets.fromLTRB(80, 30, 80, 30),
+                  padding: kButtonsPadding,
                   backgroundColor: Colors.red,
                 ),
                 onPressed: () {},
                 child: Text(
                   'False',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: kTextStyle,
                 ),
               ),
             ],
