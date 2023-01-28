@@ -51,4 +51,8 @@ class QuestionBank {
   bool getAnswear() {
     return _questionList[_currentQuestion].answer;
   }
+
+  void reset() {
+    _currentQuestion = 0;
+  }
 }

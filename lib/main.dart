@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'constants.dart';
-
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'questionBank.dart';
 
 QuestionBank myQuestionsList = QuestionBank();
@@ -34,21 +34,29 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void doTheWorkWhenButtonPressed(bool isTrue) {
     bool correctAns = myQuestionsList.getAnswear();
-    if (!myQuestionsList.areQuestionsFinished()) {
-      if (isTrue) {
-        setState(() {
+    setState(() {
+      if (!myQuestionsList.areQuestionsFinished()) {
+        if (isTrue) {
           myIconsList.add(
             getIconForYourAnswear(correctAns),
           );
-        });
-      } else {
-        setState(() {
+        } else {
           myIconsList.add(
             getIconForYourAnswear(!correctAns),
           );
-        });
+        }
+      } else {
+        Alert(
+          context: context,
+          title: 'Finished!',
+          desc: 'You\'ve reached the end of the quiz.',
+        ).show();
+
+        myQuestionsList.reset();
+
+        myIconsList = [];
       }
-    }
+    });
   }
 
   Icon getIconForYourAnswear(bool isTrue) {
